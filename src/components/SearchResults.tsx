@@ -22,8 +22,17 @@ interface Place {
   directions?: string;
 }
 
+interface SearchResults {
+  local_results?: Place[];
+  places?: Place[];
+  search_parameters?: {
+    q?: string;
+    ll?: string;
+  };
+}
+
 interface SearchResultsProps {
-  results: any;
+  results: SearchResults | null;
   loading: boolean;
 }
 
@@ -97,7 +106,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results, loading }) => {
         <div className="bg-white p-4 rounded-lg shadow-md">
           <h2 className="text-xl font-bold text-black mb-4">Location</h2>
           <div className="flex justify-between items-center">
-            <p className="text-black">Showing results for "<span className="font-medium">{searchQuery}</span>" near this location</p>
+            <p className="text-black">Showing results for &quot;<span className="font-medium">{searchQuery}</span>&quot; near this location</p>
             <a 
               href={`https://www.google.com/maps/search/${encodeURIComponent(searchQuery)}/@${searchLocation},14z`}
               target="_blank"

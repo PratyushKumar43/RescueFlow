@@ -1,13 +1,13 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import MapSearch from '@/components/MapSearch';
 import SearchResults from '@/components/SearchResults';
 
 export default function Dashboard() {
-  const [searchResults, setSearchResults] = useState<any>(null);
+  const [searchResults, setSearchResults] = useState<Record<string, unknown> | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [searchPerformed, setSearchPerformed] = useState<boolean>(false);
@@ -30,9 +30,10 @@ export default function Dashboard() {
       const data = await response.json();
       console.log('Search results received:', data);
       setSearchResults(data);
-    } catch (err: any) {
+    } catch (err: Error | unknown) {
       console.error('Error searching:', err);
-      setError(err.message || 'An error occurred while searching. Please try again.');
+      const errorMessage = err instanceof Error ? err.message : 'An error occurred while searching. Please try again.';
+      setError(errorMessage);
       setSearchResults(null);
     } finally {
       setIsLoading(false);
