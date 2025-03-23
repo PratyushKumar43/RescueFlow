@@ -30,7 +30,7 @@ export default function Dashboard() {
       const data = await response.json();
       console.log('Search results received:', data);
       setSearchResults(data);
-    } catch (err: Error | unknown) {
+    } catch (err: unknown) {
       console.error('Error searching:', err);
       const errorMessage = err instanceof Error ? err.message : 'An error occurred while searching. Please try again.';
       setError(errorMessage);

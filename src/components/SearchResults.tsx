@@ -22,7 +22,7 @@ interface Place {
   directions?: string;
 }
 
-interface SearchResults {
+interface SearchResultsData {
   local_results?: Place[];
   places?: Place[];
   search_parameters?: {
@@ -32,7 +32,7 @@ interface SearchResults {
 }
 
 interface SearchResultsProps {
-  results: SearchResults | null;
+  results: SearchResultsData | null;
   loading: boolean;
 }
 
